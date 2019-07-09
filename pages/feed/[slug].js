@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch';
 import Error from '../_error';
-import Page from '../../components/Page';
+import Page from '../../components/page';
 import PostList from '../../components/post-list';
 
 export default function Feed({ feed }) {

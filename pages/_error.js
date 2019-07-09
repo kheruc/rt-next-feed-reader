@@ -1,4 +1,4 @@
-import Page from '../components/Page';
+import Page from '../components/page';
 
 class Error extends React.Component {
   static getInitialProps({ res, err }) {

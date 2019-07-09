@@ -1,5 +1,5 @@
 import feeds from '../data/feeds';
-import Page from '../components/Page';
+import Page from '../components/page';
 import FeedList from '../components/feed-list';
 
 export default function Index() {
