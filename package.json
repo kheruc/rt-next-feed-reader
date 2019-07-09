@@ -1,0 +1,25 @@
+{
+  "name": "rt-next-feed-reader",
+  "version": "1.0.0",
+  "description": "A Next.js 9 example app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://kheruc@github.com/kheruc/rt-next-feed-reader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kheruc/rt-next-feed-reader/issues"
+  },
+  "homepage": "https://github.com/kheruc/rt-next-feed-reader#readme",
+  "dependencies": {
+    "next": "^9.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
