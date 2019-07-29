@@ -1,4 +1,27 @@
-const PostList = ({ posts }) => {
+import {useState, useContext} from 'react';
+import Modal from 'react-modal';
+import ThemeContext from './ThemeContext';
+
+const PostList = ({posts, slug}) => {
+  const [indexOpen, setIndexOpen] = useState(null);
+
+  const themeIsDark = useContext(ThemeContext) === 'dark';
+  const postStyle = `
+    <style>
+      pre {
+        padding: 30px;
+        background: inherit;
+        opacity: 0.5;
+        max-width: 800px;
+        font-size: 13px;
+        overflow: auto;
+      }
+      li {
+        overflow: auto; 
+      }
+    </style>
+  `;
+
   return (
     <div className="posts">
       {posts.map((post, i) => {
@@ -11,14 +34,52 @@ const PostList = ({ posts }) => {
                   <strong>{post.author}</strong> |{' '}
                 </span>
               ) : null}
-              <time>{post.published}</time>
+              <span>{post.published}</span>
             </div>
             <div className="preview">
-              {post.preview}
-              {'... '}
+              <p>{post.preview}</p>
               <a href={post.link} target="_blank">
-                read more
+                <button>visit post</button>
               </a>
+              <button onClick={() => setIndexOpen(i)}>read here</button>
+              {
+                // <div style={{display: i === indexOpen ? 'block' : 'none'}}>
+                //   <button onClick={() => setIndexOpen(null)}>Close</button>
+                //   <div dangerouslySetInnerHTML={{__html: post.content}} />
+                // </div>
+              }
+              <Modal
+                isOpen={i === indexOpen}
+                contentLabel={post.title}
+                style={{
+                  overlay: {
+                    background: themeIsDark
+                      ? 'rgba(0, 0, 0, 0.7)'
+                      : 'rgba(255, 255, 255, 0.7)',
+                  },
+                  content: {
+                    background: themeIsDark ? '#282c35' : '#fafafa',
+                    color: themeIsDark ? '#bbb' : '#222',
+                  },
+                }}>
+                <button
+                  style={{
+                    position: 'fixed',
+                    padding: '5px',
+                    top: '10px',
+                    left: '10px',
+                    background: 'black',
+                    border: 'none',
+                    fontSize: '25px',
+                    color: 'white',
+                  }}
+                  onClick={() => setIndexOpen(null)}>
+                  Close
+                </button>
+                <div
+                  dangerouslySetInnerHTML={{__html: post.content + postStyle}}
+                />
+              </Modal>
             </div>
           </div>
         );
@@ -29,21 +90,26 @@ const PostList = ({ posts }) => {
           margin-bottom: 60px;
         }
         h2 {
-          color: #333;
           margin: 50px 0 20px;
           font-size: 28px;
           line-height: 1.3;
         }
         .info {
-          color: #555;
           font-size: 16px;
           margin-bottom: 10px;
         }
-        time {
-          color: #777;
+        button {
+          background: forestgreen;
+          border: none;
+          margin: 15px;
+          font-size: 16px;
+          border-radius: 5px;
+          color: white;
+          padding: 8px 10px;
+          cursor: pointer;
         }
-        .preview {
-          color: #7a7a7a;
+        a button {
+          background: orangered;
         }
       `}</style>
     </div>

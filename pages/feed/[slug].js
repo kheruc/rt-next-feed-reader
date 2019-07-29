@@ -3,7 +3,7 @@ import Error from '../_error';
 import Page from '../../components/page';
 import PostList from '../../components/post-list';
 
-export default function Feed({ feed }) {
+export default function Feed({feed}) {
   if (feed.error) {
     return <Error statusCode={404} />;
   }
@@ -24,14 +24,17 @@ export default function Feed({ feed }) {
         </div>
       </div>
 
-      {feed.posts.length ? <PostList posts={feed.posts} /> : <div>Posts are not available at the moment</div>}
+      {feed.posts.length ? (
+        <PostList posts={feed.posts} slug={feed.slug} />
+      ) : (
+        <div>Posts are not available at the moment</div>
+      )}
       <style jsx>{`
         .feed {
           margin-bottom: 30px;
           overflow: hidden;
         }
         h1 {
-          color: #555;
           margin: 0 0 10px 0;
           font-size: 33px;
           line-height: 1.2;
@@ -47,7 +50,7 @@ export default function Feed({ feed }) {
   );
 }
 
-Feed.getInitialProps = async ({ res, query }) => {
+Feed.getInitialProps = async ({res, query}) => {
   let r = await fetch(`http://localhost:3000/api/feeds/${query.slug}`);
   let feed = await r.json();
 
@@ -56,6 +59,6 @@ Feed.getInitialProps = async ({ res, query }) => {
   }
 
   return {
-    feed
+    feed,
   };
 };

@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-const Header = () => {
+const Header = ({darkMode}) => {
   return (
     <header>
-      <div className="logo">
+      <div className={`logo ${darkMode ? 'dark' : null}`}>
         <Link href="/">
           <a>Next Feed Reader</a>
         </Link>
@@ -17,7 +17,10 @@ const Header = () => {
           text-shadow: rgba(0, 0, 0, 0.13) 3px 3px 5px;
           font-size: 32px;
           font-weight: 900;
-          color: #111;
+          color: #444;
+        }
+        .dark a {
+          color: #fff;
         }
       `}</style>
     </header>

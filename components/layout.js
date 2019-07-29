@@ -1,12 +1,26 @@
 import Header from './header';
 import Footer from './footer';
+import {useState} from 'react';
+import Switch from 'react-switch';
+import ThemeContext from './ThemeContext';
 
 const Layout = props => {
-  return (
-    <div className="site-wrapper">
-      <Header />
+  const [isChecked, setIsChecked] = useState(false);
 
-      <div className="content-wrapper">{props.children}</div>
+  const handleChange = () => {
+    isChecked ? setIsChecked(false) : setIsChecked(true);
+  };
+
+  return (
+    <div className={`site-wrapper ${isChecked ? 'dark' : null}`}>
+      <div style={{position: 'absolute', top: '20', left: '20'}}>
+        <Switch checked={isChecked} onChange={handleChange} />
+      </div>
+      <Header darkMode={isChecked} />
+
+      <ThemeContext.Provider value={isChecked ? 'dark' : 'light'}>
+        <div className="content-wrapper">{props.children}</div>
+      </ThemeContext.Provider>
 
       <Footer />
 
@@ -22,10 +36,8 @@ const Layout = props => {
           font-size: 18px;
           line-height: 1.7;
           font-weight: 400;
-          background: #fafafa;
-          color: #454545;
-          font-family: -apple-system, BlinkMacSystemFont, Roboto, 'Segoe UI', 'Fira Sans', Avenir, 'Helvetica Neue',
-            'Lucida Grande', sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, Roboto, 'Segoe UI',
+            'Fira Sans', Avenir, 'Helvetica Neue', 'Lucida Grande', sans-serif;
           text-rendering: optimizeLegibility;
         }
 
@@ -62,6 +74,7 @@ const Layout = props => {
 
         .site-wrapper {
           padding: 20px;
+          background: #fafafa;
         }
 
         .content-wrapper {
@@ -71,6 +84,17 @@ const Layout = props => {
         .page {
           max-width: 800px;
           margin: 100px auto;
+        }
+
+        .dark {
+          background-color: #282c35;
+          color: #fafafa;
+        }
+        .dark p {
+          color: #ccc;
+        }
+        .dark h1 {
+          color: #caa;
         }
       `}</style>
     </div>
