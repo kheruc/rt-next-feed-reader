@@ -1,27 +1,20 @@
 import Link from 'next/link';
-import Router from 'next/router';
+// import Router from 'next/router';
 
 const FeedList = ({feeds}) => {
   return (
     <div className="feeds">
       {feeds.map(feed => {
         return (
-          <div
-            className="feed"
-            onClick={() => Router.push(`/feed/${feed.slug}`)}
-            key={feed.slug}>
-            {
-              // <Link href="/feed/[slug]" as={`/feed/${feed.slug}`}>
-            }
-            <a>
-              <img src={`/static/images/${feed.slug}.png`} />
-              <b>
-                <div>{feed.title}</div>
-              </b>
-            </a>
-            {
-              // </Link>
-            }
+          <div className="feed" key={feed.slug}>
+            <Link href="/feed/[slug]" as={`/feed/${feed.slug}`}>
+              <a>
+                <img src={`/static/images/${feed.slug}.png`} />
+                <b>
+                  <div>{feed.title}</div>
+                </b>
+              </a>
+            </Link>
           </div>
         );
       })}
@@ -30,9 +23,8 @@ const FeedList = ({feeds}) => {
         .feeds {
           display: flex;
           flex-wrap: wrap;
-          justify-content: center;
+          justify-content: space-between;
           margin-bottom: 50px;
-          max-width: 1240px;
           margin: 0 auto;
           text-align: center;
         }

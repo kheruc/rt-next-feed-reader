@@ -5,13 +5,13 @@ const Header = ({darkMode}) => {
     <header>
       <div className={`logo ${darkMode ? 'dark' : null}`}>
         <Link href="/">
-          <a>Next Feed Reader</a>
+          <a>Feed Reader</a>
         </Link>
       </div>
       <style jsx>{`
         header {
           text-align: center;
-          margin: 40px 0;
+          margin: 20px 0;
         }
         .logo a {
           text-shadow: rgba(0, 0, 0, 0.13) 3px 3px 5px;

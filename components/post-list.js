@@ -22,14 +22,11 @@ const PostList = ({posts, slug}) => {
       img {
         text-align: center;
       }
-      // a {
-      //   max-width: 800px;
-      // }
       li {
         overflow: auto; 
       }
       figure > * {
-        height: 22px;
+        height: 320px;
       }
       
       ::-webkit-scrollbar {
@@ -63,10 +60,12 @@ const PostList = ({posts, slug}) => {
             </div>
             <div className="preview">
               <p>{post.preview}</p>
-              <a href={post.link} target="_blank">
+              <a href={post.link} title="Visit" target="_blank">
                 <button>🔗</button>
               </a>
-              <button onClick={() => setIndexOpen(i)}>📄</button>
+              <button title="Read" onClick={() => setIndexOpen(i)}>
+                📄
+              </button>
               {
                 // <div style={{display: i === indexOpen ? 'block' : 'none'}}>
                 //   <button onClick={() => setIndexOpen(null)}>Close</button>
@@ -95,17 +94,27 @@ const PostList = ({posts, slug}) => {
                 <button
                   style={{
                     position: 'fixed',
-                    padding: '5px',
-                    top: '5px',
-                    left: '5px',
-                    background: 'black',
-                    border: 'none',
-                    fontSize: '25px',
-                    color: 'white',
+                    padding: '5px 10px',
+                    top: '3px',
+                    left: '3px',
+                    fontSize: '20px',
+                    background: 'rgba(0, 0, 0, 0.7)',
+                    color: '#eee',
                   }}
                   onClick={() => setIndexOpen(null)}>
                   Close
                 </button>
+                <a
+                  href={post.link}
+                  style={{
+                    position: 'fixed',
+                    top: '5px',
+                    right: '5px',
+                    border: 'none',
+                    fontSize: '15px',
+                  }}>
+                  <button>🔗</button>
+                </a>
                 <h2>{post.title}</h2>
                 <div
                   className="post-container"

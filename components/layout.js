@@ -13,8 +13,15 @@ const Layout = props => {
 
   return (
     <div className={`site-wrapper ${isChecked ? 'dark' : null}`}>
-      <div style={{position: 'absolute', top: '20', left: '20'}}>
-        <Switch checked={isChecked} onChange={handleChange} />
+      <div style={{position: 'absolute', top: '5', left: '5'}}>
+        <Switch
+          checked={isChecked}
+          offColor="#282c35"
+          onColor="#c9c9c9"
+          onHandleColor="#282c35"
+          offHandleColor="#f9faff"
+          onChange={handleChange}
+        />
       </div>
       <Header darkMode={isChecked} />
 
@@ -83,7 +90,7 @@ const Layout = props => {
 
         .page {
           max-width: 800px;
-          margin: 100px auto;
+          margin: 50px auto;
         }
 
         .dark {
@@ -100,5 +107,4 @@ const Layout = props => {
     </div>
   );
 };
-
 export default Layout;
