@@ -74,7 +74,7 @@ const Layout = props => {
 
         .site-wrapper {
           padding: 20px;
-          background: #fafafa;
+          background: #f9faff;
         }
 
         .content-wrapper {
@@ -94,7 +94,7 @@ const Layout = props => {
           color: #ccc;
         }
         .dark h1 {
-          color: #caa;
+          color: #bbb;
         }
       `}</style>
     </div>

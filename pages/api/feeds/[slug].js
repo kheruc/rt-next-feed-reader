@@ -16,7 +16,7 @@ export default async (req, res) => {
     let data = await r.json();
 
     if (data && data.items) {
-      data.items.map(post => {
+      await data.items.map(post => {
         feed.posts.push({
           title: post.title,
           published: distanceInWordsToNow(post.pubDate) + ' ago',

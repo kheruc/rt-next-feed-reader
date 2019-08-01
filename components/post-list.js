@@ -11,13 +11,38 @@ const PostList = ({posts, slug}) => {
       pre {
         padding: 30px;
         background: inherit;
-        opacity: 0.5;
         max-width: 800px;
-        font-size: 13px;
+        font-size: 14px;
         overflow: auto;
+        background-color: #011627;
+        border-radius: 10px;
+        color: #fff;
+        margin: 20px auto;
       }
+      img {
+        text-align: center;
+      }
+      // a {
+      //   max-width: 800px;
+      // }
       li {
         overflow: auto; 
+      }
+      figure > * {
+        height: 22px;
+      }
+      
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
       }
     </style>
   `;
@@ -39,9 +64,9 @@ const PostList = ({posts, slug}) => {
             <div className="preview">
               <p>{post.preview}</p>
               <a href={post.link} target="_blank">
-                <button>visit post</button>
+                <button>🔗</button>
               </a>
-              <button onClick={() => setIndexOpen(i)}>read here</button>
+              <button onClick={() => setIndexOpen(i)}>📄</button>
               {
                 // <div style={{display: i === indexOpen ? 'block' : 'none'}}>
                 //   <button onClick={() => setIndexOpen(null)}>Close</button>
@@ -60,14 +85,19 @@ const PostList = ({posts, slug}) => {
                   content: {
                     background: themeIsDark ? '#282c35' : '#fafafa',
                     color: themeIsDark ? '#bbb' : '#222',
+                    width: '100%',
+                    position: 'absolute',
+                    top: '0',
+                    left: '0',
+                    bottom: '0',
                   },
                 }}>
                 <button
                   style={{
                     position: 'fixed',
                     padding: '5px',
-                    top: '10px',
-                    left: '10px',
+                    top: '5px',
+                    left: '5px',
                     background: 'black',
                     border: 'none',
                     fontSize: '25px',
@@ -76,7 +106,9 @@ const PostList = ({posts, slug}) => {
                   onClick={() => setIndexOpen(null)}>
                   Close
                 </button>
+                <h2>{post.title}</h2>
                 <div
+                  className="post-container"
                   dangerouslySetInnerHTML={{__html: post.content + postStyle}}
                 />
               </Modal>
@@ -89,6 +121,9 @@ const PostList = ({posts, slug}) => {
         .post {
           margin-bottom: 60px;
         }
+        .post-container {
+          padding: 10px;
+        }
         h2 {
           margin: 50px 0 20px;
           font-size: 28px;
@@ -99,21 +134,17 @@ const PostList = ({posts, slug}) => {
           margin-bottom: 10px;
         }
         button {
-          background: forestgreen;
-          border: none;
+          border: 2px dotted gray;
+          background: transparent;
           margin: 15px;
-          font-size: 16px;
+          font-size: 18px;
+          color: inherit;
           border-radius: 5px;
-          color: white;
           padding: 8px 10px;
           cursor: pointer;
-        }
-        a button {
-          background: orangered;
         }
       `}</style>
     </div>
   );
 };
-
 export default PostList;
