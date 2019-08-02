@@ -21,12 +21,13 @@ const PostList = ({posts, slug}) => {
       }
       img {
         text-align: center;
+        max-width: 250px;
       }
       li {
         overflow: auto; 
       }
       figure > * {
-        height: 320px;
+        max-height: 320px;
       }
       
       ::-webkit-scrollbar {

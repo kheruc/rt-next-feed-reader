@@ -3,6 +3,7 @@ import Footer from './footer';
 import {useState} from 'react';
 import Switch from 'react-switch';
 import ThemeContext from './ThemeContext';
+// import feeds from '../data/feeds';
 
 const Layout = props => {
   const [isChecked, setIsChecked] = useState(false);
@@ -24,7 +25,6 @@ const Layout = props => {
         />
       </div>
       <Header darkMode={isChecked} />
-
       <ThemeContext.Provider value={isChecked ? 'dark' : 'light'}>
         <div className="content-wrapper">{props.children}</div>
       </ThemeContext.Provider>
