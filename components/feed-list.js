@@ -9,7 +9,10 @@ const FeedList = ({feeds}) => {
           <div className="feed" key={feed.slug}>
             <Link href="/feed/[slug]" as={`/feed/${feed.slug}`}>
               <a>
-                <img src={`/static/images/${feed.slug}.png`} />
+                {/* <img src={`/static/images/${feed.slug}.png`} /> */}
+                <img
+                  src={`//logo.clearbit.com/${feed.website.split('/')[2]}`}
+                />
                 <b>
                   <div>{feed.title}</div>
                 </b>
@@ -36,6 +39,9 @@ const FeedList = ({feeds}) => {
           border: 3px solid;
           border-radius: 4px;
           border-color: transparent;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
         }
         .feed:hover {
           border-color: inherit;

@@ -14,7 +14,11 @@ export default function Feed({feed}) {
   return (
     <Page title={feed.title}>
       <div className="feed">
-        <img className="image" src={`/static/images/${feed.slug}.png`} />
+        {/* <img className="image" src={`/static/images/${feed.slug}.png`} /> */}
+        <img
+          className="image"
+          src={`//logo.clearbit.com/${feed.website.split('/')[2]}`}
+        />
         <h1>{feed.title}</h1>
         <div className="links">
           <a href={feed.website} target="_blank">
@@ -44,7 +48,7 @@ export default function Feed({feed}) {
         }
         .image {
           float: left;
-          width: 110px;
+          width: auto;
           height: 110px;
           margin: 0 20px 20px 0;
         }

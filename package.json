@@ -1,5 +1,5 @@
 {
-  "name": "rt-next-feed-reader",
+  "name": "feed-reader",
   "version": "1.0.0",
   "description": "A Next.js 9 example app",
   "main": "index.js",
@@ -10,19 +10,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://kheruc@github.com/kheruc/rt-next-feed-reader.git"
+    "url": "git+https://coderprans@github.com/coderprans/feed-reader.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kheruc/rt-next-feed-reader/issues"
+    "url": "https://github.com/coderprans/feed-reader/issues"
   },
-  "homepage": "https://github.com/kheruc/rt-next-feed-reader#readme",
+  "homepage": "https://github.com/coderprans/feed-reader#readme",
   "dependencies": {
     "date-fns": "^1.30.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.0.1",
+    "next-offline": "^4.0.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-modal": "^3.9.1",
