@@ -48,10 +48,10 @@ const feeds = [
     url: 'https://scotch.io/feed'
   },
   {
-    title: 'Hacker Noon',
-    slug: 'hackernoon',
-    website: 'https://hackernoon.com',
-    url: 'https://hackernoon.com/feed'
+    title: 'CodePen',
+    slug: 'codepen',
+    website: 'https://blog.codepen.io',
+    url: 'https://blog.codepen.io/feed/'
   },
   {
     title: 'Alligator.io',
