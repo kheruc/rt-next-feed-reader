@@ -3,7 +3,7 @@ import Page from '../components/page';
 import FeedList from '../components/feed-list';
 import {useState, useEffect} from 'react';
 
-export default function Index() {
+export default function Index(props) {
   const [localFeeds, setLocalFeeds] = useState([]);
 
   const [formVisible, setFormVisible] = useState(false);

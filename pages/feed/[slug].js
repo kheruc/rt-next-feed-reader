@@ -25,7 +25,7 @@ export default class Feed extends React.Component {
     if (filtered.length > 0) {
       let feed = filtered[0];
 
-      fetch(`/api/${encodeURI(feed.url)}`)
+      fetch(`/api/feed/${encodeURI(feed.url)}`)
         .then(res => res.json())
         .then(posts => {
           feed.posts = posts;

@@ -3,7 +3,6 @@ import Footer from './footer';
 import {useState} from 'react';
 import Switch from 'react-switch';
 import ThemeContext from './ThemeContext';
-// import feeds from '../data/feeds';
 
 const Layout = props => {
   const [isChecked, setIsChecked] = useState(false);
@@ -84,9 +83,9 @@ const Layout = props => {
           background: #f9faff;
         }
 
-        .content-wrapper {
-          min-height: 600px;
-        }
+        /* .content-wrapper {
+        //   min-height: 600px;
+        */ }
 
         .page {
           max-width: 800px;
