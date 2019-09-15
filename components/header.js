@@ -11,7 +11,7 @@ const Header = ({darkMode}) => {
       <style jsx>{`
         header {
           text-align: center;
-          margin: 20px 0;
+          margin: 20px 10px;
         }
         .logo a {
           text-shadow: rgba(0, 0, 0, 0.13) 3px 3px 5px;

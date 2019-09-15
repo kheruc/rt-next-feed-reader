@@ -1,6 +1,11 @@
 import Head from 'next/head';
+import {useEffect} from 'react';
 
 const Page = props => {
+  useEffect(() => {
+    console.log(document.cookie)
+  },[])
+
   return (
     <div className="page">
       <Head>

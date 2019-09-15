@@ -1,20 +1,33 @@
 import Header from './header';
 import Footer from './footer';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import Router from 'next/router';
 import Switch from 'react-switch';
 import ThemeContext from './ThemeContext';
-// import feeds from '../data/feeds';
 
 const Layout = props => {
   const [isChecked, setIsChecked] = useState(false);
+  const [loggedIn, setLoggedIn] = useState({})
 
   const handleChange = () => {
     isChecked ? setIsChecked(false) : setIsChecked(true);
   };
 
+  useEffect(() => {
+    fetch('/api/getUser')
+      .then(res => res.json())
+      .then(data => {
+        console.log('recieved from api/getUser', data); 
+        setLoggedIn({...loggedIn, id: data.token})
+        if(data.user) {
+          setLoggedIn({...loggedIn, user: {...data.user}})
+        }
+    }); 
+  },[])
+
   return (
     <div className={`site-wrapper ${isChecked ? 'dark' : null}`}>
-      <div style={{position: 'absolute', top: '5', left: '5'}}>
+      <div className="navbar">
         <Switch
           checked={isChecked}
           offColor="#282c35"
@@ -23,8 +36,16 @@ const Layout = props => {
           offHandleColor="#f9faff"
           onChange={handleChange}
         />
+        <div className="navbar-controls">
+          {loggedIn.user
+              ? (<><span style={{margin: '0 10px'}}>{loggedIn.user.name}</span><button onClick={() => {document.cookie='token=;'; location.reload()}}>Sign Out</button></>)
+              : (<><button style={{margin: '0 10px'}} onClick={() => Router.push('/login')}>Sign In</button><button onClick={() => Router.push('/register')}>Sign Up</button></>)
+          } 
+         </div>
       </div>
+      <div style={{marginTop: '50px'}}>
       <Header darkMode={isChecked} />
+      </div>
       <ThemeContext.Provider value={isChecked ? 'dark' : 'light'}>
         <div className="content-wrapper">{props.children}</div>
       </ThemeContext.Provider>
@@ -84,15 +105,14 @@ const Layout = props => {
           background: #f9faff;
         }
 
-        .content-wrapper {
-          min-height: 600px;
-        }
+        /* .content-wrapper {
+        //   min-height: 600px;
+        */ }
 
         .page {
           max-width: 800px;
           margin: 50px auto;
         }
-
         .dark {
           background-color: #282c35;
           color: #fafafa;
@@ -102,6 +122,24 @@ const Layout = props => {
         }
         .dark h1 {
           color: #bbb;
+        }
+        .navbar {
+          position: absolute; 
+          top: 5; 
+          left: 5; 
+          width: 95%; 
+          display: flex; 
+          justify-content: space-around;      
+        }
+        button {
+          padding: 7px 10px;
+          background: #ddd;
+          opacity: 0.7;
+          color: #111;
+          font-size: 15px;
+          border: none;
+          cursor: pointer;
+          border-radius: 4px;
         }
       `}</style>
     </div>

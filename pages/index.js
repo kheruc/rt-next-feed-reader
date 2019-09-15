@@ -3,7 +3,7 @@ import Page from '../components/page';
 import FeedList from '../components/feed-list';
 import {useState, useEffect} from 'react';
 
-export default function Index() {
+export default function Index(props) {
   const [localFeeds, setLocalFeeds] = useState([]);
 
   const [formVisible, setFormVisible] = useState(false);
@@ -13,9 +13,20 @@ export default function Index() {
   const [newFeedUrl, setNewFeedUrl] = useState('');
 
   useEffect(() => {
+    fetch('/api/getUser')
+      .then(res => res.json())
+      .then(data => {
+        console.log('recieved from api/getUser', data); 
+        if(data.user) {
+          setLocalFeeds(data.user.feeds);
+        }
+    });
+  },[])
+
+  useEffect(() => {
     !localFeeds.length ? loadStorage() : updateStorage();
   }, [localFeeds]);
-
+  
   function loadStorage() {
     let initialFeeds = localStorage.getItem('_feeds')
       ? JSON.parse(localStorage.getItem('_feeds'))
@@ -27,6 +38,29 @@ export default function Index() {
     localStorage.setItem('_feeds', JSON.stringify(localFeeds));
   }
 
+  function updateDB(feedsArray) {
+    setLocalFeeds(feedsArray);
+    fetch('/api/update', {
+      method: 'POST',
+      body: JSON.stringify(feedsArray)
+    }).then(res => res.json())
+      .then(data => {
+        if(data.mssg === 'Saved') {
+          alert('changes saved');
+        }
+      }).catch(err => console.log(err))
+   
+    setNewFeedTitle('');
+    setNewFeedWebsite('');
+    setNewFeedUrl('');
+  }
+
+  function handleDelete(i){
+    let newLocalFeeds = [...localFeeds.slice(0, i), ...localFeeds.slice(i+1)]
+    setLocalFeeds(newLocalFeeds);
+    updateDB(newLocalFeeds);
+  }
+  
   return (
     <Page>
       <button
@@ -53,41 +87,28 @@ export default function Index() {
             value={newFeedUrl}
           />
           <button
-            onClick={() => (
-              setLocalFeeds([
-                ...localFeeds,
-                {
+            onClick={() => 
+              updateDB([...localFeeds, {
                   title: newFeedTitle,
                   slug: newFeedTitle.replace(/ /g, '-').toLowerCase(),
                   website: newFeedWebsite,
                   url: newFeedUrl,
-                },
-              ]),
-              setNewFeedTitle(''),
-              setNewFeedWebsite(''),
-              setNewFeedUrl('')
-            )}>
+              }])
+            }>
             Submit
           </button>
         </div>
       </div>
       {localFeeds.length ? (
-        <FeedList feeds={localFeeds} />
+        <>
+        <FeedList feeds={localFeeds} onDelete={handleDelete} />
+        </>
       ) : (
         <p style={{textAlign: 'center'}}>...</p>
       )}
       <style jsx>{`
         .unvisible {
           display: none;
-        }
-        .toggle-visibility {
-          width: 40px;
-          background-color: transparent;
-          border: 2px dotted #666;
-          border-radius: 5px;
-          cursor: pointer;
-          color: inherit;
-          font-size: 20px;
         }
         .toggle-visibility:hover {
           border-color: #aaa;
