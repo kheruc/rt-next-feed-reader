@@ -23,18 +23,19 @@ try {
 
 export default async function(req, res) {
   let reqBody = JSON.parse(req.body);
-  let password = bcryptjs.hashSync(reqBody.password, 10);
-  //console.log(reqBody);
-  console.log([...feeds]);
-  let userExists = await User.findOne({email: reqBody.email})
-  if(userExists) {
-    res.send({mssg: 'User already exists'})
+
+  let user = await User.findOne({email : reqBody.email});
+  if(!user) {
+    res.send({mssg: 'User not found'})
   }
   else {
-  let user = new User({...JSON.parse(req.body), password, feeds: [...feeds]});
-  user.save()
-    .then(res => console.log(res)).catch(err => console.log(err));
-  res.send({mssg: 'User Registered'})
+    let validPass = bcryptjs.compareSync(reqBody.password, user.password);
+    if(validPass) {
+      res.send({mssg: 'Logged In', token: user._id});
+    } 
+    else {
+      res.send({mssg: 'Incorrect Password'});
+    }
   }
 }
 

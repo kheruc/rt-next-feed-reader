@@ -1,10 +1,13 @@
 import Link from 'next/link';
 // import Router from 'next/router';
 
-const FeedList = ({feeds}) => {
+const FeedList = ({feeds, onDelete}) => {
+  function handleDelete(i) {
+   onDelete(i)
+  }
   return (
     <div className="feeds">
-      {feeds.map(feed => {
+      {feeds.map((feed, i) => {
         return (
           <div className="feed" key={feed.slug}>
             <Link href="/feed/[slug]" as={`/feed/${feed.slug}`}>
@@ -18,6 +21,7 @@ const FeedList = ({feeds}) => {
                 </b>
               </a>
             </Link>
+              <button onClick={() => handleDelete(i)}>del</button>
           </div>
         );
       })}
@@ -48,6 +52,10 @@ const FeedList = ({feeds}) => {
         }
         .feed img {
           width: 120px;
+        }
+        button:hover {
+          background: orangered;
+          color: white;
         }
         .feed a {
           display: block;

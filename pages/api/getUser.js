@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import bcryptjs from 'bcryptjs';
-import feeds from '../../data/feeds';
 
 let mongoDB_uri = 'mongodb://pranav:pranav123@ds125526.mlab.com:25526/feed-reader' 
   // connect to database
@@ -21,20 +19,19 @@ try {
   User = require('../../data/model');
 }
 
-export default async function(req, res) {
-  let reqBody = JSON.parse(req.body);
-  let password = bcryptjs.hashSync(reqBody.password, 10);
-  //console.log(reqBody);
-  console.log([...feeds]);
-  let userExists = await User.findOne({email: reqBody.email})
-  if(userExists) {
-    res.send({mssg: 'User already exists'})
-  }
-  else {
-  let user = new User({...JSON.parse(req.body), password, feeds: [...feeds]});
-  user.save()
-    .then(res => console.log(res)).catch(err => console.log(err));
-  res.send({mssg: 'User Registered'})
-  }
+function filterToken(cookiesArray) {
+  return cookiesArray
 }
 
+export default async function(req, res) {
+  let id = req.headers.cookie.split(' ');
+  let token = id.filter(m => m.slice(0, 5) === 'token')[0].slice(6);
+  console.log(token);
+  if(token.length > 0) {
+    let user = await User.findById(token)
+      res.send({token, user}) 
+  }
+  else {
+      res.send({mssg: "Please log in"});
+  }
+}

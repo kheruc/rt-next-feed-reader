@@ -14,11 +14,10 @@ const Register = () => {
   }
   function handleSubmit(e) {
     e.preventDefault()
-    alert(`name: ${state.name}\nemail: ${state.email}\npassword: ${state.password}`)
     fetch('/api/register', {
       method: 'POST',
       body: JSON.stringify(state)
-    }).then(res => res.json()).then(data => console.log(data))
+    }).then(res => res.json()).then(data => alert(data.mssg))
     setState({name: '', email: '', password: ''})
   }
   return (

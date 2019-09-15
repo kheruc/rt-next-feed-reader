@@ -1,4 +1,5 @@
 import Page from '../components/page';
+import Router from 'next/router';
 import {useState, useEffect} from 'react';
 
 const Login = () => {
@@ -12,7 +13,15 @@ const Login = () => {
   }
   function handleSubmit(e) {
     e.preventDefault()
-    alert(`email: ${state.email}\npassword: ${state.password}`)
+    fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify(state)
+    }).then(res => res.json())
+      .then(data => {
+        alert(data.mssg);
+        if(data.token) document.cookie = `token=${data.token};`
+        location.reload()
+      })
     setState({email: '', password: ''})
   }
   return (
