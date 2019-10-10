@@ -67,6 +67,7 @@ const Layout = props => {
           font-family: -apple-system, BlinkMacSystemFont, Roboto, 'Segoe UI',
             'Fira Sans', Avenir, 'Helvetica Neue', 'Lucida Grande', sans-serif;
           text-rendering: optimizeLegibility;
+          background-color: #282c35;
         }
 
         a {
